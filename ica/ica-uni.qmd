@@ -1,5 +1,115 @@
 ---
-title: "Univariate Viz"
+title: "3.2 Univariate Viz"
 ---
 
-Use this file for practice with the **univariate viz** in-class activity.  Refer to the class website for details.
+Use this file for practice with the **univariate viz** in-class activity.  Refer to the class website 
+```{r}
+# Import data
+hikes <- read.csv("https://mac-stat.github.io/data/high_peaks.csv")
+```
+
+#What features would we like a visualization of the categorical difficulty rating variable to capture?
+
+Level of difficulty
+
+#What about a visualization of the quantitative elevation variable?
+
+Time
+
+```{r}
+# Load the package
+library(tidyverse)
+```
+```{r}
+# Use the ggplot function
+ggplot(hikes, aes(x = rating))
+```
+
+
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# ANS- added the geom_bar function, which plots bar chart
+ggplot(hikes, aes(x = rating)) +
+  geom_bar()
+```
+
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# Specified the label for the  Y-axis
+ggplot(hikes, aes(x = rating)) +
+  geom_bar() +
+  labs(x = "Rating", y = "Number of hikes")
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# added a specific color for my plots 
+ggplot(hikes, aes(x = rating)) +
+  geom_bar(fill = "#E5684E") +
+  labs(x = "Rating", y = "Number of hikes")
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# ANS- added the boaders to my plots 
+ggplot(hikes, aes(x = rating)) +
+  geom_bar(color = "yellow", fill = "#E5684E") +
+  labs(x = "Rating", y = "Number of hikes")
+```
+
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# added the theme function- you can tryy out different available functions
+ggplot(hikes, aes(x = rating)) +
+  geom_bar(color = "orange", fill = "blue")  +
+  labs(x = "Rating", y = "Number of hikes") +
+  theme_minimal()
+```
+
+#Construct a bar chart of the quantitative elevation variable.
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_bar(color = "orange", fill = "blue")  +
+  labs(x = "Elevation (feet)", y = "Number of hikes") +
+  theme_minimal()
+```
+
+#try a histogram instead
+
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram()  +
+  labs(x = "Elevation (feet)", y = "Number of hikes") +
+  theme_minimal()
+```
+
+#we gotta fix those gaps
+# COMMENT on the change in the code and the corresponding change in the plot
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", binwidth = 1000) +
+  labs(x = "Elevation (feet)", y = "Number of hikes")
+
+```
+
+#adjust the binwidth
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", binwidth = 200) +  #color+ white helps with demacations
+  labs(x = "Elevation (feet)", y = "Number of hikes")
+```
+
+
+### Density plots
+
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_density() +
+  labs(x = "elevation (feet)", y = "number of hikes")
+```
+
+## color/fill 
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_density(color= "red", fill= "white") +
+  labs(x = "elevation (feet)", y = "number of hikes")
+```
