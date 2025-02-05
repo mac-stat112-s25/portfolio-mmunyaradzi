@@ -110,6 +110,6 @@ ggplot(hikes, aes(x = elevation)) +
 ## color/fill 
 ```{r}
 ggplot(hikes, aes(x = elevation)) +
-  geom_density(color= "red", fill= "white") +
+  geom_density(color= "red", fill= "hotpink") +
   labs(x = "elevation (feet)", y = "number of hikes")
 ```
