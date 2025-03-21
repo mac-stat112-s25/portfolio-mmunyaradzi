@@ -56,6 +56,7 @@ Let's start by working with some TidyTuesday data on penguins. This data include
 
 ```{r}
 library(tidyverse)
+library(ggplot2)
 penguins <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-28/penguins.csv')
 
 # Check it out
@@ -277,7 +278,7 @@ Let's define a new dataset that removes these penguins:
 ```{r}
 # NOTE the use of is.na()
 penguins_w_body_mass <- penguins |> 
-  filter(!is.na(body_mass_g)). # not is.na
+  filter(!is.na(body_mass_g)) # not is.na
 
 # Compare the number of penguins in this vs the original data
 nrow(penguins_w_body_mass)
@@ -339,19 +340,22 @@ penguins |>
 
 ```{r}
 # Use a shortcut to keep only species and the penguin characteristics measured in mm
-
-
+penguins |> 
+  select(species, ends_with("mm"))
+  
 ```
 
 ```{r}
 # Use a shortcut to keep only species and bill-related measurements
-
+penguins |> 
+  select(species, starts_with("bill"))
 
 ```
 
 ```{r}
 # Use a shortcut to keep only species and the length-related characteristics
-
+penguins |> 
+  select(species, contains("length"))
 
 ```
 
@@ -368,19 +372,20 @@ We've done examples where we need to `filter()` by more than one variable, or `s
 # Change this code to sort the penguins by species, and then island name
 # NOTE: The first row should be an Adelie penguin living on Biscoe island
 penguins |> 
-  arrange(species)
+  arrange(species, island) |>
+  head()
 ```
 
 ```{r}
 # Change this code to count the number of male/female penguins observed for each species
 penguins |> 
-  count(species)
+  count(species, sex)
 ```
 
 ```{r}
 # Change this code to calculate the average body mass by species and sex
 penguins |> 
-  group_by(species) |> 
+  group_by(species, sex) |> 
   summarize(mean = mean(body_mass_g, na.rm = TRUE))
 
 ```
@@ -413,29 +418,37 @@ year(today)
 
 ```{r}
 # What do these lines produce / what's their difference?
+# month(today) tells us the monthn as a number of the 12
+# month(today, label = TRUE) = 1st 3 letters of the month/ as a label
 month(today)
 month(today, label = TRUE)
 ```
 
 ```{r}
-# What does this number mean?
+# What does this number mean? 
+#what week of the year are we
 week(today)
 ```
 
 ```{r}
-# What do these lines produce / what's their difference?
+# What do these lines produce / what's their difference? 
+# day of the month
+# Day number of the year
 mday(today)
 yday(today)  # This is often called the "Julian day"
 ```
 
 ```{r}
 # What do these lines produce / what's their difference?
+#week day number, day name 
 wday(today)
 wday(today, label = TRUE)
 ```
 
 ```{r}
 # What do the results of these 2 lines tell us?
+# is today after 14 February 2024
+#is today before Feb 2024, returns a T or F
 today >= ymd("2024-02-14")
 today < ymd("2024-02-14")
 ```
@@ -468,12 +481,20 @@ head(Birthdays)
 
 ```{r}
 # How many days of data do we have for each state?
-
+Birthdays |>
+  group_by(state) |>
+  summarise(days_of_data = n_distinct(date))
 
 # How many total births were there in this time period?
-
+Birthdays %>% 
+  summarise(total_births = sum(births))
 
 # How many total births were there per state in this time period, sorted from low to high?
+Birthdays %>% 
+  group_by(state) %>% 
+  summarise(state_total_birth = sum(births)) %>% 
+  arrange(desc(state_total_birth))
+
 
 
 ```
@@ -485,6 +506,9 @@ head(Birthdays)
 Create a new dataset named `daily_births` that includes the total number of births per day (across all states) and the corresponding day of the week, eg, Mon. NOTE: Name the column with total births so that it's easier to wrangle and plot.
 
 ```{r}
+Birthdays %>% 
+  group_by(wday) %>% 
+  summarise(total_births_per_day = sum(births))
 ```
 
 Using this data, construct a plot of `births` over time, indicating the day of week.
@@ -510,6 +534,21 @@ penguins |>
 Calculate the total number of births in each month and year, eg, Jan 1969, Feb 1969, .... Label month by names not numbers, eg, Jan not 1. Then, plot the births by month and comment on what you learn.
 
 ```{r}
+# Either this one 
+monthly_births <- Birthdays |>
+  mutate(month_name = month.abb[month]) |>  
+  group_by(year, month_name) |>
+  summarize(total_births = sum(births), .groups = "drop") |>
+  mutate(month_name = factor(month_name, levels = month.abb))
+  
+  #View(monthly_births)
+
+ggplot(monthly_births, aes(x = month_name, y = total_births)) +
+  geom_boxplot(fill = "blue", color = "black", alpha = 0.5) +
+  labs(
+    title = "Total Births by Month (Across All Years)"
+  ) +
+  theme_minimal()
 ```
 
 #### Part b {.unnumbered}
