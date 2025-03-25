@@ -4,7 +4,7 @@ project:
 
 book:
   title: "COMP/STAT112 Notebook"
-  author: "Your Name Here"
+  author: "Munyaradzi Masvaure"
   date: today
   reader-mode: true
   page-navigation: true
@@ -13,7 +13,7 @@ book:
   
   
   sidebar:
-    title: "Your Name Here"
+    title: "Munyaradzi"
     collapse-level: 2
     style: "docked"
     pinned: true
@@ -42,6 +42,7 @@ book:
       - ica/reshaping.qmd
       - ica/wrangling.qmd
       - ica/dates.qmd
+      - ica/data_import.qmd
 
 format:
   html:
