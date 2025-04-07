@@ -1,0 +1,78 @@
+---
+title: "Solo-Project"
+format: html
+---
+
+```{r}
+#packages
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(plotly)
+library(sf)
+library(viridis)
+```
+
+```{r}
+# data
+crime <- read_csv("../data/SouthAfricaCrimeStats_v2.csv")
+
+
+# shape file
+map_data <- st_read("../data/south_africa_Province_level_1_MAPOG/south_africa_Province_level_1.shp")
+
+
+
+
+```
+
+```{r}
+# increase spread by log transformation
+crime_filtered <- crime %>%
+  select(Province, `2015-2016`) %>%
+  mutate(`2015-2016` = as.numeric(`2015-2016`))
+```
+
+```{r}
+# Inspect data
+head(map_data)
+head(crime)
+
+
+```
+
+```{r}
+# group by province and create a sum for the entries
+crime_filtered <- crime %>%
+  group_by(Province) %>%
+  summarise(`2015-2016` = sum(as.numeric(`2015-2016`))) 
+
+# Standardize province names and lowercase & remove extra spaces
+crime_filtered <- crime_filtered %>%
+  mutate(Province = tolower(trimws(Province))) 
+
+# correct KwaZulu-Natal Kwazulu/Natal mismatch
+crime_filtered <- crime_filtered %>%
+  mutate(Province = ifelse(Province == "kwazulu-natal", "kwazulu/natal", Province))
+
+# rename shape1 to province
+map_data <- map_data %>%
+  rename(Province = shape1) %>%
+  mutate(Province = tolower(trimws(Province)))
+```
+
+```{r}
+# join the csv and the shape file
+map_data <- map_data %>%
+  left_join(crime_filtered, by = "Province")
+```
+
+```{r}
+# plot
+ggplot() +
+  geom_sf(data = map_data, aes(fill = `2015-2016`), color = "white", size = 0.15) +
+  scale_fill_viridis_c(option = "plasma", na.value = "red") +
+  labs(title = "Total Crime Cases in South Africa (2015-2016)", fill = "Cases") +
+  theme_minimal()
+
+```
