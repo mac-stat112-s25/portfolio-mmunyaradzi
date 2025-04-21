@@ -2,4 +2,25 @@
 title: "Univariate Viz"
 ---
 
-Use this file to generate a professional looking **univariate** visualization. The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+Use this file to generate a professional looking **univariate** visualization.
+The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+library(tidyverse)
+library(viridis)
+hikes <- read.csv("https://mac-stat.github.io/data/high_peaks.csv")
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", fill = "#2a9d8f") + 
+  labs( 
+    title = "Hike Elevation Distribution",
+    x = "Elevation (ft)", 
+    y = "Number of Hikes"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5) 
+  )
+  
+#| fig-alt:"This histogram displays the distribution of hike elevations in the High Peaks region. The x-axis represents elevation in feet, while the y-axis represents the number of hikes. The bars, filled in brown with black borders, show the frequency of hikes at different elevation levels, indicating whether most hikes occur at lower or higher elevations."
+```
+

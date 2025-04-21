@@ -3,3 +3,29 @@ title: "Trivariate Viz"
 ---
 
 Use this file to generate a professional looking **trivariate** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+library(tidyverse)
+library(viridis)
+choc <- read.csv("../data/Chocolate Sales.csv")
+#View(choc)
+```
+
+```{r}
+#convert amount to numeric, remove $ and commas
+choc$Amount <- as.numeric(gsub("[$,]", "", choc$Amount))
+
+
+# Plot 
+ggplot(choc, aes(x = Boxes.Shipped, y = Amount)) +
+  geom_point(alpha = 0.8, size= 2) +
+  facet_wrap(~ Country) +
+  labs(title = "Sales Amount Over and Boxes Shipped",
+       x = "Date",
+       y = "Sales Amount ($)",
+       size = "Boxes Shipped",
+       color = "Sales Person") +
+  geom_smooth(method = lm, se= F, color= "red" ) +
+  theme_minimal()
+```
+

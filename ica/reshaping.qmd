@@ -246,7 +246,7 @@ Wrangle this data so that the 3 restaurant columns are combined into 1, hence th
 
 ## Exercises
 
-{{< include activity-instructions.qmd >}}
+
 
 ### Exercise 1: What's the problem? {.unnumbered}
 
