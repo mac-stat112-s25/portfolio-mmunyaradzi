@@ -32,6 +32,15 @@ book:
       - bw/bw-spatial.qmd
       - bw/Solo-Project.qmd
       
+    - part: "Summary Sheets"
+      chapters: 
+      - summarysheet/sheet1.qmd
+
+
+    - part: "Exams"
+      chapters: 
+      - exam/exam1.qmd
+      - exam/exam2.qmd
 
     - part: "In-class Activities"
       chapters: 
@@ -58,10 +67,14 @@ format:
     code-link: true
     code-line-numbers: true
     code-tools: true
+    code-fold: true
 
 execute:
   cache: false
-  freeze: auto
+  freeze: false
+  echo: true
+  warning: false
+  error: false
 
 editor: 
   markdown:

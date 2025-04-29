@@ -69,10 +69,17 @@ map_data <- map_data %>%
 
 ```{r}
 # plot
+library(ggplot2)
+
 ggplot() +
   geom_sf(data = map_data, aes(fill = `2015-2016`), color = "white", size = 0.15) +
   scale_fill_viridis_c(option = "plasma", na.value = "red") +
-  labs(title = "Total Crime Cases in South Africa (2015-2016)", fill = "Cases") +
-  theme_minimal()
+  labs(
+    title = "Total Crime Cases in South Africa (2015-2016)",
+    fill = "Cases",
+    caption = "Source: South African Police Service (SAPS)"
+  ) +
+  theme_void()
+
 
 ```
