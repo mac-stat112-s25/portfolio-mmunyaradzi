@@ -76,6 +76,28 @@
     ]
   },
   {
+    "objectID": "exam/exam1.html",
+    "href": "exam/exam1.html",
+    "title": "\n8  Exam 1\n",
+    "section": "",
+    "text": "Code#install.packages(\"tidytuesdayR\")\n#install.packages(\"tidyverse\")\n \nlibrary(tidytuesdayR)\nlibrary(tidyverse)\nlibrary(ggplot2)\ntuesdata &lt;- tt_load('2020-02-18')\nfc &lt;- tuesdata$food_consumption\n\n\n\nCodehead(fc)\n\n# A tibble: 6 × 4\n  country   food_category consumption co2_emmission\n  &lt;chr&gt;     &lt;chr&gt;               &lt;dbl&gt;         &lt;dbl&gt;\n1 Argentina Pork                10.5          37.2 \n2 Argentina Poultry             38.7          41.5 \n3 Argentina Beef                55.5        1712   \n4 Argentina Lamb & Goat          1.56         54.6 \n5 Argentina Fish                 4.36          6.96\n6 Argentina Eggs                11.4          10.5 \n\nCodedim(fc)\n\n[1] 1430    4\n\nCodestr(fc)\n\nspc_tbl_ [1,430 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ country      : chr [1:1430] \"Argentina\" \"Argentina\" \"Argentina\" \"Argentina\" ...\n $ food_category: chr [1:1430] \"Pork\" \"Poultry\" \"Beef\" \"Lamb & Goat\" ...\n $ consumption  : num [1:1430] 10.51 38.66 55.48 1.56 4.36 ...\n $ co2_emmission: num [1:1430] 37.2 41.53 1712 54.63 6.96 ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   country = col_character(),\n  ..   food_category = col_character(),\n  ..   consumption = col_double(),\n  ..   co2_emmission = col_double()\n  .. )\n - attr(*, \"problems\")=&lt;externalptr&gt; \n\n\n\nCode# Country plot\nggplot(fc, aes(x = country)) +\n  geom_bar()\n\n\n\n\n\n\nCode# Food item plot\nggplot(fc, aes(x = food_category)) +\n  geom_bar()\n\n\n\n\n\n\nCode# Consumption plot (histogram)\nggplot(fc, aes(x = consumption)) +\n  geom_histogram()\n\n\n\n\n\n\n\nOverall food consumption / food category This would be a simple bar graph Overall food consumption / country This would also be a simple bar graph\nFor answering question 9, I would select a stacked bar chart. This chart would have axes labels, alt text, a caption, a legend, and a title.\nSome further questions I have are 1. How does world region of affect consumption? 2. How does a country’s size affect consumption? 3. How are CO2 emmissions related to food consumption? 4. How are CO2 emmissions related to food category?",
+    "crumbs": [
+      "Exams",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Exam 1</span>"
+    ]
+  },
+  {
+    "objectID": "exam/exam2.html",
+    "href": "exam/exam2.html",
+    "title": "\n9  Exam 2\n",
+    "section": "",
+    "text": "Codelibrary(tidytuesdayR)\nlibrary(tidyverse)\nlibrary(rnaturalearth)\nlibrary(sf)\n\ntuesdata &lt;- tt_load('2020-02-18')\nfc &lt;- tuesdata$food_consumption\n\n\n\nCodestr(fc)\n\nspc_tbl_ [1,430 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ country      : chr [1:1430] \"Argentina\" \"Argentina\" \"Argentina\" \"Argentina\" ...\n $ food_category: chr [1:1430] \"Pork\" \"Poultry\" \"Beef\" \"Lamb & Goat\" ...\n $ consumption  : num [1:1430] 10.51 38.66 55.48 1.56 4.36 ...\n $ co2_emmission: num [1:1430] 37.2 41.53 1712 54.63 6.96 ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   country = col_character(),\n  ..   food_category = col_character(),\n  ..   consumption = col_double(),\n  ..   co2_emmission = col_double()\n  .. )\n - attr(*, \"problems\")=&lt;externalptr&gt; \n\nCodehead(fc)\n\n# A tibble: 6 × 4\n  country   food_category consumption co2_emmission\n  &lt;chr&gt;     &lt;chr&gt;               &lt;dbl&gt;         &lt;dbl&gt;\n1 Argentina Pork                10.5          37.2 \n2 Argentina Poultry             38.7          41.5 \n3 Argentina Beef                55.5        1712   \n4 Argentina Lamb & Goat          1.56         54.6 \n5 Argentina Fish                 4.36          6.96\n6 Argentina Eggs                11.4          10.5 \n\n\n\nCodefcc &lt;- fc %&gt;% \n  mutate(\n    food_category = ifelse(food_category == \"Lamb & Goat\", \"Lamb\", food_category),\n    food_category = ifelse(food_category == \"Milk - inc. cheese\", \"Dairy\", food_category),\n    food_category = ifelse(food_category == \"Wheat and Wheat Products\", \"Wheat\", food_category),\n    food_category = ifelse(food_category == \"Nuts inc. Peanut Butter\", \"Nuts\", food_category),\n    ) %&gt;% \n  arrange(desc(consumption))\n\n\n\nCodene_countries(return = \"sf\") %&gt;% \n  select(name, geometry) %&gt;% \n  mutate(name = ifelse(name == \"United States of America\", \"USA\", name)) %&gt;%\n  mutate(name = ifelse(name == \"Bosnia and Herz\", \"Bosnia and Herzegovina\", name)) %&gt;% \n  mutate(name = ifelse(name == \"Czechia\", \"Czech Republic\", name)) %&gt;% \n  mutate(name = ifelse(name == \"Taiwan\", \"Taiwan. ROC\", name)) %&gt;% \n  left_join(\n    fcc %&gt;% \n      select (-co2_emmission) %&gt;% \n      group_by(food_category) %&gt;% \n      mutate(consumption = (consumption - mean(consumption))/sd(consumption)),\n    join_by(name == country)) %&gt;% \n  pivot_wider(names_from = food_category, values_from = consumption) %&gt;% \n  select(-\"NA\") %&gt;% \n  pivot_longer(cols = c(-name, -geometry),\n               names_to = \"food_category\",\n               values_to = \"consumption\") %&gt;% \n  ggplot() +\n  geom_sf(aes(fill = consumption)) +\n  facet_wrap(~food_category) +\n  theme(legend.position = \"bottom\")",
+    "crumbs": [
+      "Exams",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Exam 2</span>"
+    ]
+  },
+  {
     "objectID": "ica/ica-uni.html",
     "href": "ica/ica-uni.html",
     "title": "\n10  3.2 Univariate Viz\n",
