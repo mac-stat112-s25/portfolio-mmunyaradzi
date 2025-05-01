@@ -1028,7 +1028,7 @@ Handeling <code>NA</code> Values
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="co"># Get today's date</span></span>
 <span id="cb56-2"><a href="#cb56-2"></a><span class="fu">as.Date</span>(<span class="fu">today</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2025-04-30"</code></pre>
+<pre><code>[1] "2025-05-01"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="co"># Let's store this as "today" so we can work with it below</span></span>
 <span id="cb58-2"><a href="#cb58-2"></a>today <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">today</span>())</span>
@@ -1052,11 +1052,11 @@ Handeling <code>NA</code> Values
 <span id="cb62-3"><a href="#cb62-3"></a><span class="co"># month(today, label = TRUE) = 1st 3 letters of the month/ as a label</span></span>
 <span id="cb62-4"><a href="#cb62-4"></a><span class="fu">month</span>(today)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
+<pre><code>[1] 5</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a><span class="fu">month</span>(today, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] Apr
+<pre><code>[1] May
 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</code></pre>
 </div>
 </div>
@@ -1074,11 +1074,11 @@ Handeling <code>NA</code> Values
 <span id="cb68-3"><a href="#cb68-3"></a><span class="co"># Day number of the year</span></span>
 <span id="cb68-4"><a href="#cb68-4"></a><span class="fu">mday</span>(today)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 30</code></pre>
+<pre><code>[1] 1</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a><span class="fu">yday</span>(today)  <span class="co"># This is often called the "Julian day"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 120</code></pre>
+<pre><code>[1] 121</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1086,11 +1086,11 @@ Handeling <code>NA</code> Values
 <span id="cb72-2"><a href="#cb72-2"></a><span class="co">#week day number, day name </span></span>
 <span id="cb72-3"><a href="#cb72-3"></a><span class="fu">wday</span>(today)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
+<pre><code>[1] 5</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a><span class="fu">wday</span>(today, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] Wed
+<pre><code>[1] Thu
 Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </div>
 </div>
@@ -1616,7 +1616,7 @@ Click for Solutions
 <div class="sourceCode cell-code" id="cb134"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1"></a><span class="co"># Get today's date</span></span>
 <span id="cb134-2"><a href="#cb134-2"></a><span class="fu">as.Date</span>(<span class="fu">today</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2025-04-30"</code></pre>
+<pre><code>[1] "2025-05-01"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb136"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1"></a><span class="co"># Let's store this as "today" so we can work with it below</span></span>
 <span id="cb136-2"><a href="#cb136-2"></a>today <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">today</span>())</span>
@@ -1638,11 +1638,11 @@ Click for Solutions
 <div class="sourceCode cell-code" id="cb140"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1"></a><span class="co"># Today's month, as a number or label</span></span>
 <span id="cb140-2"><a href="#cb140-2"></a><span class="fu">month</span>(today)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
+<pre><code>[1] 5</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb142"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1"></a><span class="fu">month</span>(today, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] Apr
+<pre><code>[1] May
 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</code></pre>
 </div>
 </div>
@@ -1657,22 +1657,22 @@ Click for Solutions
 <div class="sourceCode cell-code" id="cb146"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1"></a><span class="co"># Day of the month (1-31) and day of the year (1-366)</span></span>
 <span id="cb146-2"><a href="#cb146-2"></a><span class="fu">mday</span>(today)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 30</code></pre>
+<pre><code>[1] 1</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb148"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1"></a><span class="fu">yday</span>(today)  <span class="co"># This is often called the "Julian day"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 120</code></pre>
+<pre><code>[1] 121</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb150"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1"></a><span class="co"># Day of the week as a number or label</span></span>
 <span id="cb150-2"><a href="#cb150-2"></a><span class="fu">wday</span>(today)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
+<pre><code>[1] 5</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb152"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1"></a><span class="fu">wday</span>(today, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] Wed
+<pre><code>[1] Thu
 Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </div>
 </div>
