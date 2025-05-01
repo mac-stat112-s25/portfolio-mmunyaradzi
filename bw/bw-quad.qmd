@@ -3,3 +3,31 @@ title: "Quadvariate Viz"
 ---
 
 Use this file to generate a professional looking **quadvariate** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+library(tidyverse)
+library(viridis)
+spotify <- read.csv("../data/light_spotify_dataset.csv")
+head(spotify)
+```
+
+```{r}
+# spotify_sample for fast plotting.
+spotify_sample <- spotify %>% sample_n(50)
+
+
+ggplot(spotify_sample, aes(x = Tempo, y = Loudness, color = emotion, size = variance)) +
+  geom_point(alpha = 0.7) +
+  scale_color_viridis(discrete = TRUE, option = "D") +
+  facet_wrap(~ Genre) +
+  labs(
+    title = "Spotify Quadvisualization: Tempo, Loudness, Emotion, Variance by Genre",
+    x = "Tempo (BPM)",
+    y = "Loudness (dB)",
+    color = "Emotion",
+    size = "Variance"
+  ) +
+  theme_minimal()
+
+```
+

@@ -34,7 +34,7 @@ book:
       
     - part: "Summary Sheets"
       chapters: 
-      - summarysheet/sheet1.qmd
+      - summarysheet/summarysheet.qmd
 
 
     - part: "Exams"

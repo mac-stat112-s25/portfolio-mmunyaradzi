@@ -3,3 +3,41 @@ title: "Spatial Viz"
 ---
 
 Use this file to generate a professional looking **spatial** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+
+```{r}
+
+library(tidyverse)
+library(mosaic)
+library(RColorBrewer)
+
+#| fig-alt:"This choropleth map visualizes the percentage of votes for the Republican candidate in the 2020 U.S. Presidential Election across states (excluding Washington, D.C.). States are color-coded into categories ranging from 0% to 100% Republican vote share, using a red-to-blue gradient. Darker red shades represent higher Republican vote percentages, while darker blue shades indicate lower percentages."
+
+##| fig-cap:
+
+states_map <- map_data("state")
+elections_by_state <- read.csv("https://mac-stat.github.io/data/election_2020_by_state.csv")
+
+elections_by_state <- elections_by_state |>
+  filter(state_abbr != "DC") |>
+  select(state_name, state_abbr, repub_pct_20) |>
+  mutate(repub_20_categories =
+           cut(repub_pct_20,
+               breaks = c(30, 35, 40, 45, 50, 55, 60, 65, 70),
+               labels = c("30-35", "36-40", "41-45", "46-50",
+                          "51-55", "56-60", "61-65", "66-70"),
+               include.lowest = TRUE))
+
+ggplot(elections_by_state, aes(map_id = state_name, fill = repub_20_categories)) +
+  geom_map(map = states_map) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  labs(
+    title = "2020 U.S. Presidential Election: Republican Vote Percentage by State",
+    caption = "MM") +
+  scale_fill_manual(values = rev(brewer.pal(8, "RdBu")), name = "% Republican") +
+  theme_map()
+
+```
+
+
+

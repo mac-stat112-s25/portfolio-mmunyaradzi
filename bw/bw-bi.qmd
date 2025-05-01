@@ -3,3 +3,27 @@ title: "Bivariate Viz"
 ---
 
 Use this file to generate a professional looking **bivariate** visualization.  The visualization will not perfect the first time but you are expected to improve it throughout the semester especially after covering advanced topics such as effective viz.
+
+
+
+```{r}
+library(tidyverse)
+library(viridis)
+rev <- read.csv("../data/netflix_revenue_updated.csv")
+```
+
+```{r}
+#bivariate plot
+ggplot(rev, aes(x = UCAN.Members/1e6, y = Global.Revenue/1e9)) +
+  geom_point(size = 3, color = "darkblue") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(
+    title = "Relationship Between UCAN Members and Global Revenue",
+    x = "UCAN Members (Millions)",
+    y = "Global Revenue (Billions)"
+  ) +
+  theme_minimal()
+
+```
+
+
