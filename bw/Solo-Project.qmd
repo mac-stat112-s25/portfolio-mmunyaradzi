@@ -13,6 +13,16 @@ library(sf)
 library(viridis)
 ```
 
+### How did Crime fare by Province in South Africa from 2015 to 2016?
+
+South Africa, with its diverse landscapes and complex social history, has long grappled with issues of crime that impact public safety, economic development, and community well-being.
+This solo project aims to visualize the distribution of crime across South Africa's provinces during the 2015–2016 fiscal year using spatial data analysis and data visualization.\
+
+\
+**Objective:**
+
+The primary objective of this research is to provide a clear, intuitive map-based representation of total reported crimes by province.
+
 ```{r}
 # data
 crime <- read_csv("../data/SouthAfricaCrimeStats_v2.csv")
@@ -83,3 +93,12 @@ ggplot() +
 
 
 ```
+
+#### Results
+
+The resulting map visually emphasizes disparities in crime totals across provinces.
+:
+
+-   **Gauteng**, **Western Cape**, **Northen** and **KwaZulu-Nata**l (most of which are densely populated provinces) appear to have higher crime totals, possibly reflecting both population density and urban challenges.
+
+-   On the other side of the spectrum we have **Free State**, **North West Province**, **Limpopo** and **Mpumalanga**; most of which are sparsely populated areas with relatively lower crime totals, though this does not necessarily imply safety, as underreporting and other factors might influence statistics
